@@ -1,0 +1,212 @@
+/* ===== Container ===== */
+.users-container {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* ===== Search Bar ===== */
+.search-bar {
+  margin-bottom: 16px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-bar input:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.search-bar input::placeholder {
+  color: #aaa;
+}
+
+/* ===== Table ===== */
+.table-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: #6c5ce7;
+  color: #fff;
+}
+
+.users-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.users-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #444;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.users-table tbody tr:hover {
+  background: #f8f7ff;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== Role Tag ===== */
+.role-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e8e5ff;
+  color: #6c5ce7;
+}
+
+.role-tag.admin {
+  background: #ffe0e0;
+  color: #d63031;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: 0.2s;
+}
+
+.btn-edit {
+  background: #e8e5ff;
+  color: #6c5ce7;
+}
+
+.btn-edit:hover {
+  background: #d5d0ff;
+}
+
+.btn-delete {
+  background: #ffe0e0;
+  color: #d63031;
+}
+
+.btn-delete:hover {
+  background: #ffc8c8;
+}
+
+.btn-save {
+  background: #6c5ce7;
+  color: #fff;
+  padding: 8px 20px;
+}
+
+.btn-save:hover {
+  background: #5a4bd1;
+}
+
+.btn-cancel {
+  background: #f0f0f0;
+  color: #555;
+  padding: 8px 20px;
+}
+
+.btn-cancel:hover {
+  background: #e0e0e0;
+}
+
+/* ===== Edit Section ===== */
+.edit-section {
+  margin-top: 24px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #6c5ce7;
+}
+
+.edit-section h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.edit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px 12px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .edit-form {
+    grid-template-columns: 1fr;
+  }
+}
