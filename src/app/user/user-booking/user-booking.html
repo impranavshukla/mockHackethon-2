@@ -1,5 +1,22 @@
 <div class="booking-container">
-  <h2 class="page-title">🎫 Book Your Travel</h2>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-text">
+      <h1>🌍 Book Your Travel</h1>
+      <p>Find the best routes and book your tickets in seconds</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">{{ routes().length }}</span>
+        <span class="hero-stat-label">Routes</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">{{ myBookings().length }}</span>
+        <span class="hero-stat-label">Bookings</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Tabs -->
   <div class="tabs">
@@ -25,26 +42,54 @@
     <!-- Routes Cards -->
     <div class="routes-grid">
       <div class="route-card" *ngFor="let route of filteredRoutes()">
+        <!-- Travel type icon strip -->
+        <div class="card-type-strip"
+          [class.bus]="route.travelType === 'Bus'"
+          [class.train]="route.travelType === 'Train'"
+          [class.flight]="route.travelType === 'Flight'">
+          <span class="type-emoji" *ngIf="route.travelType === 'Bus'">🚌</span>
+          <span class="type-emoji" *ngIf="route.travelType === 'Train'">🚂</span>
+          <span class="type-emoji" *ngIf="route.travelType === 'Flight'">✈️</span>
+          <span class="type-emoji" *ngIf="route.travelType !== 'Bus' && route.travelType !== 'Train' && route.travelType !== 'Flight'">🚗</span>
+        </div>
+
         <div class="route-header">
           <span class="route-type">{{ route.travelType }}</span>
           <span class="route-price">₹{{ route.price }}</span>
         </div>
+
         <div class="route-body">
           <div class="route-path">
-            <span class="city">{{ route.source }}</span>
-            <span class="arrow">→</span>
-            <span class="city">{{ route.destination }}</span>
+            <div class="city-block">
+              <span class="city-label">From</span>
+              <span class="city">{{ route.source }}</span>
+            </div>
+            <div class="arrow-block">
+              <div class="arrow-line"></div>
+              <span class="arrow-icon">✈</span>
+              <div class="arrow-line"></div>
+            </div>
+            <div class="city-block">
+              <span class="city-label">To</span>
+              <span class="city">{{ route.destination }}</span>
+            </div>
           </div>
         </div>
-        <div class="seats-input">
-          <label>Seats:</label>
-          <input type="number" min="1" value="1" #seatInput placeholder="1" />
+
+        <div class="card-footer">
+          <div class="seats-input">
+            <label>Seats:</label>
+            <input type="number" min="1" value="1" #seatInput placeholder="1" />
+          </div>
+          <button class="btn btn-book" (click)="bookRoute(route, +seatInput.value)">🎫 Book Now</button>
         </div>
-        <button class="btn btn-book" (click)="bookRoute(route, +seatInput.value)">🎫 Book Now</button>
       </div>
     </div>
 
-    <p class="no-data" *ngIf="filteredRoutes().length === 0">No routes available.</p>
+    <div class="empty-state" *ngIf="filteredRoutes().length === 0">
+      <span class="empty-icon">🗺️</span>
+      <p>No routes available right now.</p>
+    </div>
   </div>
 
   <!-- ===================== -->
@@ -69,7 +114,7 @@
         </thead>
         <tbody>
           <tr *ngIf="myBookings().length === 0">
-            <td colspan="9" class="no-data">You have no bookings yet.</td>
+            <td colspan="9" class="no-data">You have no bookings yet. Go book a trip! 🎫</td>
           </tr>
           <tr *ngFor="let booking of myBookings()">
             <td><span class="booking-id">#{{ booking.id }}</span></td>
