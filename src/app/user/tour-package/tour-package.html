@@ -1,0 +1,82 @@
+<div class="tour-container">
+  <div class="header-section">
+    <h1>Explore the World</h1>
+    <p>Discover your next adventure with our exclusive tour packages</p>
+    
+    <div class="search-box">
+      <input type="text" [(ngModel)]="searchTerm" (input)="filterPackages()" placeholder="Search by package or destination...">
+      <button class="search-btn"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+
+  <div class="packages-grid">
+    <div class="package-card" *ngFor="let pkg of filteredPackages">
+      <div class="card-image">
+        <img [src]="pkg.imageUrl" [alt]="pkg.packageName" onerror="this.src='https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'">
+        <div class="price-tag">${{pkg.price}}</div>
+      </div>
+      <div class="card-content">
+        <div class="destination"><i class="fas fa-map-marker-alt"></i> {{pkg.destination}}</div>
+        <h3>{{pkg.packageName}}</h3>
+        <p class="description">{{pkg.description}}</p>
+        <div class="details">
+          <span><i class="far fa-clock"></i> {{pkg.durationDays}} Days</span>
+        </div>
+        <button class="book-btn" (click)="openBookingModal(pkg)">Book Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" *ngIf="isBookingModalOpen" (click)="closeModal()">
+    <div class="booking-modal" (click)="$event.stopPropagation()">
+      <button class="close-modal" (click)="closeModal()">&times;</button>
+      
+      <div class="modal-header" *ngIf="!bookingSuccess">
+        <h2>Book Your Trip</h2>
+        <p>Confirm your booking for <strong>{{selectedPackage?.packageName}}</strong></p>
+      </div>
+
+      <div class="booking-form" *ngIf="!bookingSuccess">
+        <div class="package-summary">
+          <div class="summary-item">
+            <span class="label">Destination:</span>
+            <span class="value">{{selectedPackage?.destination}}</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Duration:</span>
+            <span class="value">{{selectedPackage?.durationDays}} Days</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Base Price:</span>
+            <span class="value">${{selectedPackage?.price}} / person</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="peopleCount">How many people?</label>
+          <div class="number-input">
+            <button (click)="peopleCount > 1 ? peopleCount = peopleCount - 1 : null">-</button>
+            <input type="number" id="peopleCount" [(ngModel)]="peopleCount" min="1" readonly>
+            <button (click)="peopleCount = peopleCount + 1">+</button>
+          </div>
+        </div>
+
+        <div class="total-price">
+          <span>Total Price:</span>
+          <span class="price-amount">${{(selectedPackage?.price ?? 0) * peopleCount}}</span>
+        </div>
+
+        <div class="error-msg" *ngIf="bookingError">{{bookingError}}</div>
+
+        <button class="confirm-btn" (click)="confirmBooking()">Confirm Booking</button>
+      </div>
+
+      <div class="success-message" *ngIf="bookingSuccess">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h3>Booking Confirmed!</h3>
+        <p>Your adventure to {{selectedPackage?.destination}} has been booked successfully.</p>
+      </div>
+    </div>
+  </div>
+</div>
