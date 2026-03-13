@@ -1,1 +1,111 @@
-<p>user-home works!</p>
+<div class="home-container">
+
+  <!-- Welcome Banner -->
+  <div class="welcome-banner">
+    <div class="welcome-text">
+      <h1>Welcome back, {{ userName }}! 👋</h1>
+      <p>Plan your next journey. Explore available routes and manage your bookings.</p>
+      <a routerLink="../booking" class="btn btn-explore">🎫 Book a Trip</a>
+    </div>
+    <div class="welcome-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon total">📋</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ totalBookings() }}</span>
+        <span class="stat-label">Total Bookings</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon confirmed">✅</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ confirmedBookings() }}</span>
+        <span class="stat-label">Confirmed</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon cancelled">❌</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ cancelledBookings() }}</span>
+        <span class="stat-label">Cancelled</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon routes">🗺️</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ routes().length }}</span>
+        <span class="stat-label">Available Routes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two Column Section -->
+  <div class="two-col">
+
+    <!-- Recent Bookings -->
+    <div class="section-card">
+      <div class="section-header">
+        <h3>📋 Recent Bookings</h3>
+        <a routerLink="../booking" class="link">View All →</a>
+      </div>
+      <div class="table-wrapper" *ngIf="recentBookings().length > 0">
+        <table class="mini-table">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Type</th>
+              <th>Seats</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of recentBookings()">
+              <td>{{ b.source }} → {{ b.destination }}</td>
+              <td><span class="type-tag">{{ b.travelType }}</span></td>
+              <td>{{ b.seats }}</td>
+              <td>
+                <span class="status-tag"
+                  [class.confirmed]="b.status === 'Confirmed'"
+                  [class.cancelled]="b.status === 'Cancelled'">
+                  {{ b.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="empty-text" *ngIf="recentBookings().length === 0">No bookings yet. Start your journey!</p>
+    </div>
+
+    <!-- Popular Routes -->
+    <div class="section-card">
+      <div class="section-header">
+        <h3>🗺️ Available Routes</h3>
+        <a routerLink="../booking" class="link">Book Now →</a>
+      </div>
+      <div class="routes-list" *ngIf="routes().length > 0">
+        <div class="route-item" *ngFor="let r of routes().slice(0, 5)">
+          <div class="route-info">
+            <span class="route-cities">{{ r.source }} → {{ r.destination }}</span>
+            <span class="route-meta">
+              <span class="type-tag small">{{ r.travelType }}</span>
+            </span>
+          </div>
+          <span class="route-price">₹{{ r.price }}</span>
+        </div>
+      </div>
+      <p class="empty-text" *ngIf="routes().length === 0">No routes available right now.</p>
+    </div>
+
+  </div>
+</div>

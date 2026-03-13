@@ -1,1 +1,120 @@
-<p>admin-home works!</p>
+<div class="dashboard-container">
+
+  <!-- Welcome Banner -->
+  <div class="welcome-banner">
+    <div class="welcome-text">
+      <h1>Admin Dashboard 🛡️</h1>
+      <p>Manage your travel platform — bookings, routes, and users at a glance.</p>
+    </div>
+    <div class="welcome-actions">
+      <a routerLink="../manage-routes" class="btn btn-banner">🗺️ Manage Routes</a>
+      <a routerLink="../bookings" class="btn btn-banner-outline">📋 View Bookings</a>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon users-bg">👥</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ totalUsers() }}</span>
+        <span class="stat-label">Total Users</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon bookings-bg">📋</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ totalBookings() }}</span>
+        <span class="stat-label">Total Bookings</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon confirmed-bg">✅</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ confirmedBookings() }}</span>
+        <span class="stat-label">Confirmed</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon cancelled-bg">❌</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ cancelledBookings() }}</span>
+        <span class="stat-label">Cancelled</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon routes-bg">🗺️</div>
+      <div class="stat-info">
+        <span class="stat-number">{{ totalRoutes() }}</span>
+        <span class="stat-label">Active Routes</span>
+      </div>
+    </div>
+    <div class="stat-card highlight">
+      <div class="stat-icon revenue-bg">💰</div>
+      <div class="stat-info">
+        <span class="stat-number revenue">₹{{ totalRevenue() }}</span>
+        <span class="stat-label">Revenue (Confirmed)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two Column Section -->
+  <div class="two-col">
+
+    <!-- Recent Bookings -->
+    <div class="section-card">
+      <div class="section-header">
+        <h3>📋 Recent Bookings</h3>
+        <a routerLink="../bookings" class="link">View All →</a>
+      </div>
+      <div class="table-wrapper" *ngIf="recentBookings().length > 0">
+        <table class="mini-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Route</th>
+              <th>Seats</th>
+              <th>Price</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of recentBookings()">
+              <td>{{ b.userId }}</td>
+              <td>{{ b.source }} → {{ b.destination }}</td>
+              <td>{{ b.seats }}</td>
+              <td>₹{{ b.price }}</td>
+              <td>
+                <span class="status-tag"
+                  [class.confirmed]="b.status === 'Confirmed'"
+                  [class.cancelled]="b.status === 'Cancelled'">
+                  {{ b.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="empty-text" *ngIf="recentBookings().length === 0">No bookings yet.</p>
+    </div>
+
+    <!-- Routes Overview -->
+    <div class="section-card">
+      <div class="section-header">
+        <h3>🗺️ Routes Overview</h3>
+        <a routerLink="../manage-routes" class="link">Manage →</a>
+      </div>
+      <div class="routes-list" *ngIf="allRoutes().length > 0">
+        <div class="route-item" *ngFor="let r of allRoutes().slice(0, 6)">
+          <div class="route-info">
+            <span class="route-cities">{{ r.source }} → {{ r.destination }}</span>
+            <span class="type-tag">{{ r.travelType }}</span>
+          </div>
+          <span class="route-price">₹{{ r.price }}</span>
+        </div>
+      </div>
+      <p class="empty-text" *ngIf="allRoutes().length === 0">No routes created yet.</p>
+    </div>
+
+  </div>
+</div>

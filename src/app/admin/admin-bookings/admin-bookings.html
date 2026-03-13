@@ -1,0 +1,68 @@
+<div class="bookings-container">
+  <h2 class="page-title">📋 All Bookings</h2>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" placeholder="🔍 Search by ID, user, source, destination, type or status..."
+      [ngModel]="searchQuery()" (ngModelChange)="onSearch($event)" />
+  </div>
+
+  <!-- Bookings Table -->
+  <div class="table-wrapper">
+    <table class="bookings-table">
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>User ID</th>
+          <th>Route ID</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Travel Type</th>
+          <th>Seats</th>
+          <th>Price (₹)</th>
+          <th>Booking Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- No bookings message -->
+        <tr *ngIf="filteredBookings().length === 0">
+          <td colspan="11" class="no-data">No bookings found.</td>
+        </tr>
+
+        <tr *ngFor="let booking of filteredBookings()">
+          <td><span class="booking-id">#{{ booking.id }}</span></td>
+          <td>{{ booking.userId }}</td>
+          <td>{{ booking.routeId }}</td>
+          <td>{{ booking.source }}</td>
+          <td>{{ booking.destination }}</td>
+          <td><span class="type-tag">{{ booking.travelType }}</span></td>
+          <td>{{ booking.seats }}</td>
+          <td>₹{{ booking.price }}</td>
+          <td>{{ booking.bookingDate | date:'dd MMM yyyy' }}</td>
+          <td>
+            <span class="status-tag"
+              [class.confirmed]="booking.status === 'Confirmed'"
+              [class.pending]="booking.status === 'Pending'"
+              [class.cancelled]="booking.status === 'Cancelled'">
+              {{ booking.status }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-cancel-booking" (click)="cancelBooking(booking)"
+              *ngIf="booking.status !== 'Cancelled'">
+              ❌ Cancel
+            </button>
+            <span *ngIf="booking.status === 'Cancelled'" class="cancelled-text">Cancelled</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-bar">
+    <span>Total Bookings: <strong>{{ bookings().length }}</strong></span>
+  </div>
+</div>

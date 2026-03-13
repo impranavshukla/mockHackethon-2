@@ -5,9 +5,12 @@ import { UserLayout } from './layout/user-layout/user-layout';
 import { AdminLayout } from './layout/admin-layout/admin-layout';
 import { UserHome } from './user/user-home/user-home';
 import { UserProfile } from './user/user-profile/user-profile';
+import { UserBooking } from './user/user-booking/user-booking';
 import { AdminHome } from './admin/admin-home/admin-home';
 import { AdminProfile } from './admin/admin-profile/admin-profile';
 import { AdminUsers } from './admin/admin-users/admin-users';
+import { AdminManageRoutes } from './admin/admin-manage-routes/admin-manage-routes';
+import { AdminBookings } from './admin/admin-bookings/admin-bookings';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
@@ -22,6 +25,7 @@ export const routes: Routes = [
       { path: 'home', component: UserHome },
       { path: 'dashboard', component: UserHome },
       { path: 'profile', component: UserProfile },
+      { path: 'booking', component: UserBooking },
     ],
   },
 
@@ -35,6 +39,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: AdminHome },
       { path: 'profile', component: AdminProfile },
       { path: 'users', component: AdminUsers },
+      { path: 'manage-routes', component: AdminManageRoutes },
+      { path: 'bookings', component: AdminBookings },
     ],
   },
 

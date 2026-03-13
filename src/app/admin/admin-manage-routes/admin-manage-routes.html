@@ -1,0 +1,94 @@
+<div class="routes-container">
+  <h2 class="page-title">🗺️ Manage Travel Routes</h2>
+
+  <!-- Top Bar: Search + Add Button -->
+  <div class="top-bar">
+    <div class="search-bar">
+      <input type="text" placeholder="🔍 Search by source, destination or travel type..."
+        [ngModel]="searchQuery()" (ngModelChange)="onSearch($event)" />
+    </div>
+    <button class="btn btn-add" (click)="openAddForm()">➕ Add New Route</button>
+  </div>
+
+  <!-- Routes Table -->
+  <div class="table-wrapper">
+    <table class="routes-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Price (₹)</th>
+          <th>Travel Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- No routes message -->
+        <tr *ngIf="filteredRoutes().length === 0">
+          <td colspan="5" class="no-data">No routes found.</td>
+        </tr>
+
+        <tr *ngFor="let route of filteredRoutes()">
+          <td>{{ route.source }}</td>
+          <td>{{ route.destination }}</td>
+          <td>{{ route.price }}</td>
+          <td>
+            <span class="type-tag">{{ route.travelType }}</span>
+          </td>
+          <td>
+            <button class="btn btn-edit" (click)="openEdit(route)">✏️ Edit</button>
+            <button class="btn btn-delete" (click)="deleteRoute(route.id)">🗑️ Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add / Edit Form Section -->
+  <div class="form-section" *ngIf="showAddForm">
+    <h3>{{ editingRouteId ? '📝 Edit Route' : '➕ Add New Route' }}</h3>
+
+    <form [formGroup]="routeForm" (ngSubmit)="onSubmit()" class="route-form">
+
+      <div class="form-group">
+        <label>Source</label>
+        <input type="text" formControlName="source" placeholder="Enter source city" />
+        <span class="error" *ngIf="routeForm.get('source')?.touched && routeForm.get('source')?.invalid">
+          Source is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Destination</label>
+        <input type="text" formControlName="destination" placeholder="Enter destination city" />
+        <span class="error" *ngIf="routeForm.get('destination')?.touched && routeForm.get('destination')?.invalid">
+          Destination is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Price (₹)</label>
+        <input type="number" formControlName="price" placeholder="Enter ticket price" />
+        <span class="error" *ngIf="routeForm.get('price')?.touched && routeForm.get('price')?.invalid">
+          Valid price is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Travel Type</label>
+        <input type="text" formControlName="travelType" placeholder="e.g. Bus, Train, Flight" />
+        <span class="error" *ngIf="routeForm.get('travelType')?.touched && routeForm.get('travelType')?.invalid">
+          Travel type is required
+        </span>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-save">
+          {{ editingRouteId ? '✅ Update Route' : '✅ Add Route' }}
+        </button>
+        <button type="button" class="btn btn-cancel" (click)="closeForm()">❌ Cancel</button>
+      </div>
+
+    </form>
+  </div>
+</div>

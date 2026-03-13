@@ -1,33 +1,25 @@
 <!-- ===== Navbar ===== -->
 <nav class="navbar">
   <div class="nav-container">
-    <a class="nav-brand" href="#">
+    <a class="nav-brand" routerLink="dashboard">
       <div class="brand-logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5" />
-          <path d="M2 12l10 5 10-5" />
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
         </svg>
       </div>
-      <span class="brand-name">MyApp</span>
+      <span class="brand-name">TravelEase</span>
     </a>
 
     <ul class="nav-links">
       <li><a routerLink="dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="booking" routerLinkActive="active">Book Travel</a></li>
       <li><a routerLink="profile" routerLinkActive="active">Profile</a></li>
-      <li><a routerLink="settings" routerLinkActive="active">Settings</a></li>
     </ul>
 
     <div class="nav-actions">
-      <button class="btn-icon" title="Notifications">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-        </svg>
-        <span class="notification-dot"></span>
-      </button>
       <a routerLink="profile" class="avatar" title="Profile">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -54,44 +46,8 @@
 
 <!-- ===== Footer ===== -->
 <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-left">
-      <div class="footer-brand">
-        <div class="brand-logo-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z" />
-            <path d="M2 17l10 5 10-5" />
-            <path d="M2 12l10 5 10-5" />
-          </svg>
-        </div>
-        <span>MyApp</span>
-      </div>
-      <p class="footer-tagline">Building something amazing, one step at a time.</p>
-    </div>
-
-    <div class="footer-links">
-      <div class="footer-col">
-        <h4>Product</h4>
-        <a href="#">Features</a>
-        <a href="#">Pricing</a>
-        <a href="#">Documentation</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#">About</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-    </div>
-  </div>
-
   <div class="footer-bottom">
-    <p>&copy; 2026 MyApp. All rights reserved.</p>
+    <p>🌍 <strong>TravelEase</strong> — Your trusted travel booking platform. Book buses, trains & flights with ease.</p>
+    <p>&copy; 2026 TravelEase. All rights reserved.</p>
   </div>
 </footer>

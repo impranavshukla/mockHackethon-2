@@ -1,0 +1,106 @@
+<div class="booking-container">
+  <h2 class="page-title">🎫 Book Your Travel</h2>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'routes'" (click)="switchTab('routes')">
+      🗺️ Available Routes
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'bookings'" (click)="switchTab('bookings')">
+      📋 My Bookings
+    </button>
+  </div>
+
+  <!-- ===================== -->
+  <!-- TAB 1: Available Routes -->
+  <!-- ===================== -->
+  <div *ngIf="activeTab === 'routes'">
+
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" placeholder="🔍 Search by source, destination or travel type..."
+        [ngModel]="searchQuery()" (ngModelChange)="onSearch($event)" />
+    </div>
+
+    <!-- Routes Cards -->
+    <div class="routes-grid">
+      <div class="route-card" *ngFor="let route of filteredRoutes()">
+        <div class="route-header">
+          <span class="route-type">{{ route.travelType }}</span>
+          <span class="route-price">₹{{ route.price }}</span>
+        </div>
+        <div class="route-body">
+          <div class="route-path">
+            <span class="city">{{ route.source }}</span>
+            <span class="arrow">→</span>
+            <span class="city">{{ route.destination }}</span>
+          </div>
+        </div>
+        <div class="seats-input">
+          <label>Seats:</label>
+          <input type="number" min="1" value="1" #seatInput placeholder="1" />
+        </div>
+        <button class="btn btn-book" (click)="bookRoute(route, +seatInput.value)">🎫 Book Now</button>
+      </div>
+    </div>
+
+    <p class="no-data" *ngIf="filteredRoutes().length === 0">No routes available.</p>
+  </div>
+
+  <!-- ===================== -->
+  <!-- TAB 2: My Bookings -->
+  <!-- ===================== -->
+  <div *ngIf="activeTab === 'bookings'">
+
+    <div class="table-wrapper">
+      <table class="bookings-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Travel Type</th>
+            <th>Seats</th>
+            <th>Price (₹)</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="myBookings().length === 0">
+            <td colspan="9" class="no-data">You have no bookings yet.</td>
+          </tr>
+          <tr *ngFor="let booking of myBookings()">
+            <td><span class="booking-id">#{{ booking.id }}</span></td>
+            <td>{{ booking.source }}</td>
+            <td>{{ booking.destination }}</td>
+            <td><span class="type-tag">{{ booking.travelType }}</span></td>
+            <td>{{ booking.seats }}</td>
+            <td>₹{{ booking.price }}</td>
+            <td>{{ booking.bookingDate | date:'dd MMM yyyy' }}</td>
+            <td>
+              <span class="status-tag"
+                [class.confirmed]="booking.status === 'Confirmed'"
+                [class.pending]="booking.status === 'Pending'"
+                [class.cancelled]="booking.status === 'Cancelled'">
+                {{ booking.status }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-cancel-booking" (click)="cancelBooking(booking)"
+                *ngIf="booking.status !== 'Cancelled'">
+                ❌ Cancel
+              </button>
+              <span *ngIf="booking.status === 'Cancelled'" class="cancelled-text">Cancelled</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-bar" *ngIf="myBookings().length > 0">
+      <span>Total Bookings: <strong>{{ myBookings().length }}</strong></span>
+    </div>
+  </div>
+</div>
